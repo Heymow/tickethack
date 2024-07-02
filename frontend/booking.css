@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background-color: gainsboro;
+}
+
+#booking {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 100vh;
+    height: 40vh;
+    color: black;
+
+}
+
+#booking-header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3vh;
+}
+
+#tableBooking {
+    width: 70vh;
+    border-collapse: collapse;
+    background-color: rgb(204, 208, 204);
+    border-radius: 10px;
+
+}
+
+#tableBooking td {
+    padding: 10px;
+    text-align: center;
+}
+
+#firstColumn {
+    width: 20vh;
+}
+
+#secondColumn {
+    width: 20vh;
+}
+
+#thirdColumn {
+    width: 20vh;
+}
+
+#bookingFooter {
+    border-top: 1vh solid gray;
+    display: flex;
+    justify-content: center;
+    padding-top: 2vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(0, 127, 91);
+}
