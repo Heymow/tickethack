@@ -20,7 +20,9 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
                     let formatedDate = new Date(data.foundTrips[i].date);
 
                     let dateDay = formatedDate.getDate();
+                    dateDay < 10 && (dateDay = `0${dateDay}`);
                     let dateMonth = formatedDate.getMonth() + 1;
+                    dateMonth < 10 && (dateMonth = `0${dateMonth}`);
                     let dateYear = formatedDate.getFullYear();
                     let dateHour = formatedDate.getHours();
                     dateHour < 10 && (dateHour = `0${dateHour}`);
@@ -28,9 +30,10 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
                     dateMinute < 10 && (dateMinute = `0${dateMinute}`);
 
                     let formatedHour = `${dateHour}:${dateMinute}`
+                    let formatedDateFinal = `${dateDay}/${dateMonth}/${dateYear}`
 
                     document.querySelector("#train").innerHTML += `
-<div id="text-train">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${formatedHour} ${data.foundTrips[i].price}€</div>`
+<div id="text-train">${formatedDateFinal} || ${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} || ${formatedHour} || ${data.foundTrips[i].price}€</div>`
 
                 }
             } else {
