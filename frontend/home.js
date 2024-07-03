@@ -15,9 +15,18 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
         .then(data => {
             if (data.result) {
                 for (let i = 0; i < data.foundTrips.length; i++) {
-                    let
-                        document.querySelector("#train").innerHTML += `
-<div id="text-train">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
+                    let formatedDate = new Date(data.foundTrips[i].date);
+
+                    let dateDay = formatedDate.getDate();
+                    let dateMonth = formatedDate.getMonth() + 1;
+                    let dateYear = formatedDate.getFullYear();
+                    let dateHour = formatedDate.getHours();
+                    let dateMinute = formatedDate.getHours();
+
+                    let formatedHour = `${dateHour}:${dateMinute}`
+
+                    document.querySelector("#train").innerHTML += `
+<div id="text-train">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${formatedHour} ${data.foundTrips[i].price}€</div>`
 
                 }
             } else {
