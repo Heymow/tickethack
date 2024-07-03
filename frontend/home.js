@@ -13,6 +13,7 @@ document.querySelector('#button-searched').addEventListener('click', function ()
         .then(response => response.json())
         .then(data => {
             if (data.result) {
+                document.querySelector("#train").innerHTML = "";
                 for (let i = 0; i < data.foundTrip.length; i++) {
                     document.querySelector("#train").innerHTML += `
 <div class="booking">${data.foundTrip[i].departure}>${data.foundTrip[i].arrival} ${data.foundTrip[i].date} ${data.foundTrip[i].price}</div>`
