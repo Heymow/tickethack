@@ -18,7 +18,7 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
                 document.querySelector("#train").innerHTML = ''
                 for (let i = 0; i < data.foundTrips.length; i++) {
                     document.querySelector("#train").innerHTML += `
-<div class="trip">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
+<div id="text-train">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
 
                 }
             } else {
