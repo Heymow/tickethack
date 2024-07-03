@@ -37,9 +37,9 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
 
                 }
             } else {
-                document.querySelector("#accueil").innerHTML = `
+                document.querySelector("#acceuil").innerHTML = `
                   <img id="no-found" src="./images/notfound.png" alt="no trip found">
-                <p id="no-train">No trip found</p>
+                <p id="no-train">No trip found.</p>
 `
             }
         })
