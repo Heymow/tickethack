@@ -10,7 +10,7 @@ router.get('/', async function (req, res, next) {
 });
 
 //GET trips by departure, arrival, date
-router.get('/search', async (req, res) => {
+router.post('/search', async (req, res) => {
 
     const { departure, arrival, date } = req.body;
 

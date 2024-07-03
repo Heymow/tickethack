@@ -1,11 +1,12 @@
 
-document.querySelector('#button-searched').addEventListener('click', function () {
+document.querySelector('.bouton-lien').addEventListener('click', function () {
+
     const destination = {
         departure: document.querySelector('#departure').value,
         arrival: document.querySelector('#arrival').value,
         date: document.querySelector('#date').value
     }
-    fetch(`http://localhost:3000/trips/search?departure=${destination.departure}&arrival=${destination.arrival}&date=${destination.date}`, {
+    fetch(`http://localhost:3000/trips/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(destination)
@@ -13,12 +14,16 @@ document.querySelector('#button-searched').addEventListener('click', function ()
         .then(response => response.json())
         .then(data => {
             if (data.result) {
-                for (let i = 0; i < data.foundTrip.length; i++) {
+                for (let i = 0; i < data.foundTrips.length; i++) {
                     document.querySelector("#train").innerHTML += `
-<div class="booking">${data.foundTrip[i].departure}>${data.foundTrip[i].arrival} ${data.foundTrip[i].date} ${data.foundTrip[i].price}</div>`
+<div class="booking">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
+
                 }
             } else {
-                document.querySelector("#train").innerHTML =
+                document.querySelector("#accueil").innerHTML = `
+                  <img id="no-found" src="./images/notfound.png" alt="no trip found">
+                <p id="no-train">No trip found</p>
+`
             }
         })
 }
