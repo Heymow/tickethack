@@ -112,4 +112,18 @@ router.post('/addUser', (req, res) => {
   }
 })
 
+router.delete('/:userId/trips/:tripId', async (req, res) => {
+  if (!req.params.userId) {
+    res.json({ result: false, error: 'No User ID provided' });
+    return
+  }
+  const searchedUser = await User.findById(req.params.userId)
+  if (searchedUser) {
+    searchedUser.trips.splice(searchedUser.trips.indexOf(req.params.tripId), 1)
+    await searchedUser.save()
+    res.json({ result: true, message: "successfully deleted" })
+  }
+
+})
+
 module.exports = router;

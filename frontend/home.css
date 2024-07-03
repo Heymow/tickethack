@@ -107,7 +107,7 @@ body {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     width: 80%;
     height: 5vh;
     margin-left: 30px;
@@ -116,21 +116,6 @@ body {
     background-color: aquamarine;
 }
 
-.bouton-lien {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding-left: 150px;
-    background-color: rgb(227, 245, 231);
-    border-radius: 10px;
-    padding-left: 110px;
-    padding-right: 110px;
-    padding-bottom: 50px;
-    margin-top: 50px;
-
-}
 
 #train {
     display: flex;
@@ -147,6 +132,14 @@ body {
     color: black;
 
 
+}
+
+.booking {
+
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
 }
 
 #img-train {

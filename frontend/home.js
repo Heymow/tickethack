@@ -7,6 +7,9 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
         arrival: document.querySelector('#arrival').value,
         date: document.querySelector('#date').value
     }
+    if (!destination.departure || !destination.arrival) {
+        return;
+    }
     fetch(`http://localhost:3000/trips/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,7 +36,8 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
                     let formatedDateFinal = `${dateDay}/${dateMonth}/${dateYear}`
 
                     document.querySelector("#train").innerHTML += `
-<div id="text-train">${formatedDateFinal} || ${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} || ${formatedHour} || ${data.foundTrips[i].price}€</div>`
+<div id="text-train">${formatedDateFinal}   ${data.foundTrips[i].departure}>${data.foundTrips[i].arrival}  ${formatedHour}  ${data.foundTrips[i].price}€</div>
+ <input class="booking" type="button" value="Book" />`
 
                 }
             } else {
@@ -45,4 +49,8 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
         })
 }
 )
+document.querySelectorAll('.booking').addEventListener('click', function () {
 
+    setTimeout("location.href = 'http://google.fr';", 5000);
+}
+)
