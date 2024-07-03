@@ -23,7 +23,9 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
                     let dateMonth = formatedDate.getMonth() + 1;
                     let dateYear = formatedDate.getFullYear();
                     let dateHour = formatedDate.getHours();
-                    let dateMinute = formatedDate.getHours();
+                    dateHour < 10 && (dateHour = `0${dateHour}`);
+                    let dateMinute = formatedDate.getMinutes();
+                    dateMinute < 10 && (dateMinute = `0${dateMinute}`);
 
                     let formatedHour = `${dateHour}:${dateMinute}`
 
