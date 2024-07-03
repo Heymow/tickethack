@@ -1,6 +1,7 @@
 
 document.querySelector('.bouton-lien').addEventListener('click', function () {
 
+
     const destination = {
         departure: document.querySelector('#departure').value,
         arrival: document.querySelector('#arrival').value,
@@ -14,10 +15,21 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
         .then(response => response.json())
         .then(data => {
             if (data.result) {
-                document.querySelector("#train").innerHTML = "";
-                for (let i = 0; i < data.foundTrip.length; i++) {
+                document.querySelector("#train").innerHTML = ''
+                for (let i = 0; i < data.foundTrips.length; i++) {
+                    let formatedDate = new Date(data.foundTrips[i].date);
+
+                    let dateDay = formatedDate.getDate();
+                    let dateMonth = formatedDate.getMonth() + 1;
+                    let dateYear = formatedDate.getFullYear();
+                    let dateHour = formatedDate.getHours();
+                    let dateMinute = formatedDate.getHours();
+
+                    let formatedHour = `${dateHour}:${dateMinute}`
+
                     document.querySelector("#train").innerHTML += `
-<div class="booking">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
+<div id="text-train">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${formatedHour} ${data.foundTrips[i].price}€</div>`
+
                 }
             } else {
                 document.querySelector("#accueil").innerHTML = `

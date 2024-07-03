@@ -26,17 +26,16 @@ router.post('/:userId/addToCart', async (req, res) => {
   if (!req.params.userId) {
     res.json({ result: false, error: 'No User ID provided' });
   } else {
-    if (await User.findById(req.params.userId)) {
-      if (req.body._id) {
-        const foundUser = await User.findById(req.params.userId);
-        const newCartTrip = {
-          _id: req.body.tripId
-        }
-        foundUser.cart.push(newCartTrip._id)
-        foundUser.save();
-        res.json({ result: true, newCartTrip });
+    const foundUser = await User.findById(req.params.userId);
+    if (foundUser) {
+      if (req.body.tripId) {
+
+
+        foundUser.cart.push(req.body.tripId)
+        await foundUser.save();
+        res.json({ result: true, cart: foundUser.cart });
       } else {
-        res.json({ result: false, error: "Missing cart data" });
+        res.json({ result: false, error: "Missing tripId" });
       }
     } else { res.json({ result: false, error: "User not found" }); }
   }
@@ -46,21 +45,22 @@ router.post('/:userId/addToCart', async (req, res) => {
 router.post('/:userId/buy', async (req, res) => {
   if (!req.params.userId) {
     res.json({ result: false, error: 'No User ID provided' });
-  } else {
-    if (await User.findById(req.params.userId)) {
-
-      const foundUser = await User.findById(req.params.userId);
-      const currentCart = foundUser.cart;
-      if (currentCart.length > 0) {
-        foundUser.trips.push(foundUser.cart);
-        foundUser.save();
-        res.json({ result: true, bookings: foundUser.trips });
-        foundUser.cart = [];
-      } else {
-        res.json({ result: false, error: "Cart is empty" });
-      }
-    } else { res.json({ result: false, error: "User not found" }); }
+    return;
   }
+
+  const foundUser = await User.findById(req.params.userId);
+  if (foundUser) {
+    const currentCart = foundUser.cart;
+    if (currentCart.length > 0) {
+      foundUser.trips.push(currentCart);
+      foundUser.cart = [];
+      await foundUser.save();
+      res.json({ result: true, bookings: foundUser.trips });
+    } else {
+      res.json({ result: false, error: "Cart is empty" });
+    }
+  } else { res.json({ result: false, error: "User not found" }); }
+
 });
 
 
