@@ -14,15 +14,10 @@ document.querySelector('.bouton-lien').addEventListener('click', function () {
         .then(response => response.json())
         .then(data => {
             if (data.result) {
-<<<<<<< HEAD
                 document.querySelector("#train").innerHTML = "";
                 for (let i = 0; i < data.foundTrip.length; i++) {
-=======
-                for (let i = 0; i < data.foundTrips.length; i++) {
->>>>>>> f1b23e942bdb938a96f7c1bffe24dd4a3913b0b9
                     document.querySelector("#train").innerHTML += `
 <div class="booking">${data.foundTrips[i].departure}>${data.foundTrips[i].arrival} ${data.foundTrips[i].date} ${data.foundTrips[i].price}</div>`
-
                 }
             } else {
                 document.querySelector("#accueil").innerHTML = `
