@@ -1,3 +1,4 @@
+//intl
 var express = require('express');
 var router = express.Router();
 const Trip = require('../models/trips');
@@ -8,23 +9,32 @@ router.get('/', async function (req, res, next) {
     res.json({ result: true, allTrips });
 });
 
+//GET trips by departure, arrival, date
 router.get('/search', async (req, res) => {
-    if (req.query.departure && req.query.arrival && req.query.date) {
-        const formattedDate = new Date(req.query.date)//.toISOString().slice(0, 10);
-        //intl
-        const dateDay = formattedDate.getDate();
-        const dateMonth = formattedDate.getMonth() + 1;
-        const dateYear = formattedDate.getFullYear();
-        console.log(`${dateDay} ${dateMonth} ${dateYear}`);
-        const foundTrip = await Trip.find({
 
-            departure: req.query.departure, arrival: req.query.arrival, date:
-                { $regex: '^' + formattedDate.toISOString().slice(0, 10) }
-        })
-        res.json({ result: true, foundTrip })
-    } else if (req.query.departure && req.query.arrival && !req.query.date) {
-        const foundTrip = await Trip.find({ departure: req.query.departure, arrival: req.query.arrival })
-        res.json({ result: true, foundTrip })
+    const { departure, arrival, date } = req.body;
+
+    const formattedDate = new Date(req.body.date);
+
+    // const dateDay = formattedDate.getDate();
+    // const dateMonth = formattedDate.getMonth() + 1;
+    // const dateYear = formattedDate.getFullYear();
+
+    const departureArrivalTrips = await Trip.find({ departure, arrival });
+    foundTrips = [];
+
+    if (req.body.departure && req.body.arrival && req.body.date) {
+        for (let trip of departureArrivalTrips) {
+            let tripdate = new Date(trip.date);
+            if (tripdate.toISOString().slice(0, 10) === formattedDate.toISOString().slice(0, 10)) {
+                foundTrips.push(trip);
+            }
+        }
+        res.json({ result: true, foundTrips });
+
+    } else if (req.body.departure && req.body.arrival && !req.body.date) {
+        const foundTrips = await Trip.find({ departure, arrival })
+        res.json({ result: true, foundTrips })
     } else {
         res.json({ result: false, error: "Missing parameter" })
     }
