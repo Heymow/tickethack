@@ -13,9 +13,24 @@ router.get('/:userId/viewCart', async (req, res) => {
       const foundUser = await User.findById(req.params.userId);
       if (foundUser.cart != undefined && foundUser.cart != []) {
         foundUser.populate('cart');
-        res.json({ result: true, cart: await Trip.find({ _id: foundUser.cart }) });
+        res.json({ result: true, cart: foundUser.cart });
       } else {
         res.json({ result: false, message: "Cart is empty" });
+      }
+    } else { res.json({ result: false, error: "User not found" }); }
+  }
+});
+
+router.get('/:userId/viewBookings', async (req, res) => {
+  if (!req.params.userId) {
+    res.json({ result: false, error: 'No User ID provided' });
+  } else {
+    if (await User.findById(req.params.userId)) {
+      const foundUser = await User.findById(req.params.userId).populate('trips');
+      if (foundUser.trips != undefined && foundUser.trips != []) {
+        res.json({ result: true, bookings: foundUser.trips });
+      } else {
+        res.json({ result: false, message: "No bookings." });
       }
     } else { res.json({ result: false, error: "User not found" }); }
   }
@@ -75,7 +90,7 @@ router.post('/:userId/emptyCart', async (req, res) => {
       if (currentCart.length > 0) {
         foundUser.cart = [];
       } else {
-        res.json({ result: false, error: "Carti is empty" });
+        res.json({ result: false, error: "Cart is empty" });
       }
     } else { res.json({ result: false, error: "User not found" }); }
   }
