@@ -10,9 +10,8 @@ router.get('/:userId/viewCart', async (req, res) => {
     res.json({ result: false, error: 'No User ID provided' });
   } else {
     if (await User.findById(req.params.userId)) {
-      const foundUser = await User.findById(req.params.userId);
+      const foundUser = await User.findById(req.params.userId).populate('cart');
       if (foundUser.cart != undefined && foundUser.cart != []) {
-        foundUser.populate('cart');
         res.json({ result: true, cart: foundUser.cart });
       } else {
         res.json({ result: false, message: "Cart is empty" });
@@ -58,16 +57,18 @@ router.post('/:userId/addToCart', async (req, res) => {
 
 
 router.post('/:userId/buy', async (req, res) => {
+
   if (!req.params.userId) {
     res.json({ result: false, error: 'No User ID provided' });
     return;
   }
 
   const foundUser = await User.findById(req.params.userId);
+
   if (foundUser) {
     const currentCart = foundUser.cart;
     if (currentCart.length > 0) {
-      foundUser.trips.push(currentCart);
+      foundUser.trips = currentCart;
       foundUser.cart = [];
       await foundUser.save();
       res.json({ result: true, bookings: foundUser.trips });
@@ -119,7 +120,7 @@ router.delete('/:userId/trips/:tripId', async (req, res) => {
   }
   const searchedUser = await User.findById(req.params.userId)
   if (searchedUser) {
-    searchedUser.trips.splice(searchedUser.trips.indexOf(req.params.tripId), 1)
+    searchedUser.cart.splice(searchedUser.cart.indexOf(req.params.tripId), 1)
     await searchedUser.save()
     res.json({ result: true, message: "successfully deleted" })
   }

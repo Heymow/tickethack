@@ -14,9 +14,11 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    overflow-y: scroll;
     background-color: whitesmoke;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    padding: 20px;
     width: 50%;
     height: 40vh;
     color: black;
@@ -91,4 +93,17 @@ body {
     border-radius: 5px;
     margin-right: 2vh;
     padding: 2vh;
+}
+
+.bouton-lien {
+
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    width: 80%;
+    height: 5vh;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 10px;
+    border: none
 }
